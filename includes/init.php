@@ -59,10 +59,10 @@ function encode($text, $mode=2){
 			return urlencode(base64_encode($text));
 			break;
 		case 2:
-			return array_shift(array_values(unpack("H*", $text)));
+			return @array_shift(array_values(unpack("H*", $text)));
 			break;
 		case 3:
-			return strtoupper(array_shift(array_values(unpack("H*", $text))));
+			return @strtoupper(array_shift(array_values(unpack("H*", $text))));
 			break;
 		case 4:
 			$search = array("+", "/", "=");
