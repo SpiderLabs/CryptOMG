@@ -59,7 +59,7 @@ if(is_null($return_url)){
 if($auth==false && is_null(@$_GET['ReturnUrl']))
 	header("Location: ./index.php?cipher=$p_cipher&encoding=$p_encoding&mode=$p_mode&ReturnUrl=$return_url");
 elseif($auth == true && is_null(@$_GET['page'])){
-	header("Location: ./index.php?cipher=$p_cipher&encoding=$p_encoding&mode=$p_mode&page=".decrypt(decode($return_url, $p_encoding), $cipher, $mode, $key, $iv));
+	header("Location: ./index.php?cipher=$p_cipher&encoding=$p_encoding&mode=$p_mode&page=".trim(decrypt(decode($return_url, $p_encoding), $cipher, $mode, $key, $iv)));
 }
 
 ?>
