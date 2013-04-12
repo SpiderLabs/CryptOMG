@@ -27,22 +27,14 @@ $title = '';
 $secret = 'ThisisMYl0ng4ndh5rd2gues%sSekrett!';
 
 if(isset($_GET['algo'])){
-	if ($_GET['algo']=='md5'){
-		$algo == 'md5';
-	}elseif ($_GET['algo']=='sha1'){
-		$algo == 'sha1';
-	}else{
-		$algo == 'md5';
-	}
+	$algo = $_GET['algo'];
 }
 
 if(isset($_GET['file']) and isset($_GET['hash'])){
-	if(md5($secret.$_GET['file'])==$_GET['hash']){
+	if(hash($algo,$secret.$_GET['file'])==$_GET['hash']){
 		$fileToGet = $directory."/".$_GET['file'];
 		//Ugly hack to get this to work in PHP when it shouldn't due to null bytes. I feel dirty. (DC)
-		do{
-			$fileToGet = preg_replace('|/[^/]+?/\.\./|','/',$fileToGet,$replacementsWereMade);
-		}while($replacementsWereMade);
+		$fileToGet = str_replace("\0",'',$fileToGet);
 		$theData = nl2br(file_get_contents($fileToGet));
 		$title = $_GET['file'];
 	}
@@ -66,8 +58,13 @@ if(isset($_GET['file']) and isset($_GET['hash'])){
 			<form action="<?php print $_SERVER['PHP_SELF']?>" method="GET">
 				<label>Algorithm:</label>
 				<select name="algo">
+			<option value="md4">md4</option>
 			<option value="md5">md5</option>
+			<option value="ripemd160">ripemd160</option>
 			<option value="sha1">sha1</option>
+			<option value="sha256">sha256</option>
+			<option value="sha512">sha512</option>
+			<option value="whirlpool">whirlpool</option>
 		</select>
 				<input type="submit" value="save" />
 			</form>
@@ -76,13 +73,11 @@ if(isset($_GET['file']) and isset($_GET['hash'])){
 			<ul>
 			<?php $files = glob("./files/*");
 			foreach($files as $file){
-				$time = time();
-				$fileName = explode("/", $file);
-				$filePlace = sizeof($fileName)-1;
 				$url = "";
+				$fileName = basename($file);
 				if(isset($_GET['algo']))
 					$url .= "algo=".$_GET['algo'];
-				print "<li><a href=\"?$url&file=".$fileName[$filePlace]."&hash=".$algo($secret.$fileName[$filePlace])."\">".$fileName[$filePlace]."</a></li>";
+				print "<li><a href=\"?$url&file=".$fileName."&hash=".hash($algo,$secret.$fileName)."\">".$fileName."</a></li>";
 			}
 			?>
 			</ul>
