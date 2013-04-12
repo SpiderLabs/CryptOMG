@@ -33,6 +33,8 @@ with this program. If not, see <http://www.gnu.org/licenses/>.
 			&nbsp;&nbsp;&nbsp;&nbsp;Decrypt the message.</li>
 <li><a href="./challenge4/">Challenge 4</a><br />
 			&nbsp;&nbsp;&nbsp;&nbsp;Hijack the administrator account</li>
+<li><a href="./challenge1/">Challenge 5</a><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;Access the /etc/passwd file.</li>
 </ul>
 </body>
 </html>
