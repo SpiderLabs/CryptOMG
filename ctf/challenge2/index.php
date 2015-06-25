@@ -110,7 +110,7 @@ elseif($auth == true && is_null(@$_GET['page'])){
 			<input type="submit" value="Login">
 		  </fieldset>
 		</form>
-<? } else{ ?>
+<?php } else{ ?>
 	<div id="nav">
 		<ul>
 			<li><a href="./index.php?cipher=<?php print $p_cipher ?>&encoding=<?php print $p_encoding ?>&mode=<?php print $p_mode ?>&page=articles">Articles</a></li>
@@ -143,6 +143,6 @@ elseif($auth == true && is_null(@$_GET['page'])){
 						}else print "Please select an article";
 		?>
 	</div>
-<?}?>
+<?php } ?>
 	</body>
 </html>
